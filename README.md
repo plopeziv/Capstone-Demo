@@ -80,7 +80,11 @@ npm run test:watch
 npm run test:coverage
 ```
 
-#### CI/CD Pipeline
+### Accessibility
+
+This project prioritizes accessibility from the development stage by integrating jsx-a11y for linting and axe-core for Jest-based testing. These tools are built into the configuration and testing processes, requiring no additional setup from developers. The only responsibility is to include an accessibility test for each component.
+
+### CI/CD Pipeline
 
 This repository uses GitHub Actions to automate the CI/CD pipeline. The pipeline runs only on push events to the main branch and is not triggered for other branches.
 

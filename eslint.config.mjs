@@ -15,9 +15,10 @@ const eslintConfig = [
     "next/typescript",
     "plugin:jest/recommended",
     "plugin:jest-dom/recommended",
-    "plugin:testing-library/react"
+    "plugin:testing-library/react",
+    "plugin:jsx-a11y/recommended"
   ),
-  ...compat.plugins("jest", "testing-library", "jest-dom"),
+  ...compat.plugins("jest", "testing-library", "jest-dom", "jsx-a11y"),
 ];
 
 export default eslintConfig;
