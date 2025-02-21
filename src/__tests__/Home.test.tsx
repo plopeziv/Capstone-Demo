@@ -8,7 +8,7 @@ expect.extend(toHaveNoViolations);
 describe("<Home />", () => {
   test("It should render Home component", () => {
     render(<Home />);
-    expect(screen.getByText("Learn")).toBeInTheDocument();
+    expect(screen.getByRole("main")).toBeInTheDocument();
   });
 
   test("It should be accessible", async () => {
