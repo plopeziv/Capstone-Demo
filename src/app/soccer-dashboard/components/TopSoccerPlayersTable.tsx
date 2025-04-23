@@ -5,66 +5,60 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
-import { TableResultDTO } from "../types/table-team.dto";
-import { SortingState } from "../types/table-sorting";
 import { useState } from "react";
+import { ScoringPlayerDTO } from "../types/scoring-player.dto";
+import { SortingState } from "../types/table-sorting";
 
-const columnHelper = createColumnHelper<TableResultDTO>();
+const columnHelper = createColumnHelper<ScoringPlayerDTO>();
 
 const tableHeaders = [
+  columnHelper.accessor("name", {
+    header: "Name",
+    sortingFn: "text",
+  }),
+  columnHelper.accessor("dateOfBirth", {
+    header: "Date of Birth",
+    sortingFn: "datetime",
+  }),
+  columnHelper.accessor("nationality", {
+    header: "Nationality",
+    sortingFn: "text",
+  }),
   columnHelper.accessor("position", {
     header: "Position",
-    sortingFn: "basic",
-    invertSorting: true,
+    sortingFn: "text",
   }),
-  columnHelper.accessor("name", { header: "Name", sortingFn: "text" }),
-  columnHelper.accessor("playedGames", {
-    header: "Played Games",
+  columnHelper.accessor("goals", {
+    header: "Goals",
     sortingFn: "basic",
+    sortUndefined: 1,
   }),
-  columnHelper.accessor("won", { header: "Won", sortingFn: "basic" }),
-  columnHelper.accessor("draw", { header: "Draw", sortingFn: "basic" }),
-  columnHelper.accessor("lost", { header: "Lost", sortingFn: "basic" }),
-  columnHelper.accessor("goalsFor", {
-    header: "Goals For",
+  columnHelper.accessor("assists", {
+    header: "Assists",
     sortingFn: "basic",
+    sortUndefined: 1,
   }),
-  columnHelper.accessor("goalsAgainst", {
-    header: "Goals Against",
+  columnHelper.accessor("matches", {
+    header: "Matches",
     sortingFn: "basic",
+    sortUndefined: 1,
   }),
-  columnHelper.accessor("goalDifference", {
-    header: "+ -",
-    sortingFn: "basic",
-  }),
-  columnHelper.accessor("points", { header: "Points", sortingFn: "basic" }),
 ];
 
-export default function StandingsTable(props) {
-  const router = useRouter();
-  const rowData = props.rowData;
+export default function TopSoccerPlayersTable(props) {
+  const rowData: ScoringPlayerDTO[] = props.rowData;
   const [sorting, setSorting] = useState<SortingState>([
-    { id: "position", desc: true },
+    {
+      id: "goals",
+      desc: true,
+    },
   ]);
 
-  const emptyRows = 20 - rowData.length;
-
-  const handleClick = (teamName: string) => {
-    router.push(`/soccer-dashboard/scoring-leaders/${slugify(teamName)}`);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent, teamName: string) => {
-    if (event.key === "Enter" || event.key === " ") {
-      handleClick(teamName);
-    }
-  };
-
-  const slugify = (text: string) => {
-    return text.replace(/\s+/g, "_");
-  };
-
-  const standingsTable = useReactTable({
+  let emptyRows = 12;
+  if (rowData?.length) {
+    emptyRows = 12 - rowData.length;
+  }
+  const scoringTable = useReactTable({
     data: rowData,
     columns: tableHeaders,
     state: { sorting },
@@ -75,14 +69,14 @@ export default function StandingsTable(props) {
   });
 
   return (
-    <table className="text-center text-base w-[1100px]">
-      <caption id="table-caption" className="sr-only">
-        Premier League Table displaying team positions, played games, wins,
-        draws, losses, goals, and points.
+    <table className="text-center text-base w-[820px]">
+      <caption id="scoring-table-caption" className="sr-only">
+        Scoring table displaying player information, including name, date of
+        birth, nationality, position, goals, assists, and matches played.
       </caption>
 
       <thead className="bg-[#2b2d42]">
-        {standingsTable.getHeaderGroups().map((headerGroup) => (
+        {scoringTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               <th
@@ -90,7 +84,7 @@ export default function StandingsTable(props) {
                 role="columnheader"
                 scope="col"
                 tabIndex={0}
-                className="px-1 min-w-[90px] cursor-pointer"
+                className="px-3 min-w-[90px] cursor-pointer"
                 onClick={header.column.getToggleSortingHandler()}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -124,16 +118,12 @@ export default function StandingsTable(props) {
           </tr>
         ))}
       </thead>
-
-      <tbody className="bg-[rgba(141,153,174,0.88)] ">
-        {standingsTable.getRowModel().rows.map((row, index) => (
+      <tbody className="bg-[rgba(141,153,174,0.88)]">
+        {scoringTable.getRowModel().rows.map((row, index) => (
           <tr
             key={row.id}
             tabIndex={0}
             role="row"
-            aria-label={`Row ${row.original.name} with ${row.original.points} points`}
-            onClick={() => handleClick(row.original.name)}
-            onKeyDown={(e) => handleKeyDown(e, row.original.name)}
             className={`${
               index % 2 === 0
                 ? "bg-[rgba(141,153,174,0.88)]"
@@ -141,7 +131,7 @@ export default function StandingsTable(props) {
             } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default`}
           >
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="px-1">
+              <td key={cell.id} className="px-2">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
@@ -157,7 +147,7 @@ export default function StandingsTable(props) {
                 : "bg-[rgba(224, 232, 235, 0.88)]"
             } hover:bg-[rgba(180,200,220,0.88)]`}
           >
-            <td colSpan={10} className="h-[30px]"></td>
+            <td colSpan={7} className="h-[30px]"></td>
           </tr>
         ))}
       </tbody>

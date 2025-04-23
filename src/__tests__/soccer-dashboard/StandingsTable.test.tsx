@@ -40,7 +40,9 @@ describe("<StandingsTable />", () => {
 
     fireEvent.click(row);
 
-    expect(pushMock).toHaveBeenCalledWith("/scoring_leaders/Liverpool_FC");
+    expect(pushMock).toHaveBeenCalledWith(
+      "/soccer-dashboard/scoring-leaders/Liverpool_FC"
+    );
   });
 
   test("Row navigation should support accessibilty enter click events", async () => {
@@ -51,7 +53,9 @@ describe("<StandingsTable />", () => {
     row.focus();
     await user.keyboard("[Enter]");
 
-    expect(pushMock).toHaveBeenCalledWith("/scoring_leaders/Liverpool_FC");
+    expect(pushMock).toHaveBeenCalledWith(
+      "/soccer-dashboard/scoring-leaders/Liverpool_FC"
+    );
   });
 
   test("Row navigation should support accessibilty space bar click events", async () => {
@@ -62,7 +66,9 @@ describe("<StandingsTable />", () => {
     row.focus();
     await user.keyboard("[Space]");
 
-    expect(pushMock).toHaveBeenCalledWith("/scoring_leaders/Liverpool_FC");
+    expect(pushMock).toHaveBeenCalledWith(
+      "/soccer-dashboard/scoring-leaders/Liverpool_FC"
+    );
   });
 
   test("It should be accessible", async () => {
