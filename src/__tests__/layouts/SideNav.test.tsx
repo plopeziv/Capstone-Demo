@@ -1,5 +1,5 @@
-import SideNav from "@/app/components/SideNav";
-import { routingLinks } from "@/utils/links";
+import SideNav from "../../app/components/SideNav";
+import { routingLinks } from "../../utils/links";
 
 import { screen, render } from "@testing-library/react";
 import { act } from "react";

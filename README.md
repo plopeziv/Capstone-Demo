@@ -6,27 +6,31 @@ This repository serves as a practice project showcasing standard software develo
 
 This is the frontend portion of a React/Next.js application, built with TypeScript, Tailwind CSS, and Jest for testing. GitHub Actions is used to automate CI/CD workflows. The primary focus of this frontend is to act as the View in the MVC (Model-View-Controller) design pattern, ensuring a structured and maintainable approach to UI development.
 
+Accessibility was prioritized from the development stage by integrating jsx-a11y for linting and axe-core for Jest-based testing. These tools are pre-configured as part of the development and testing workflows, requiring no additional setup. Developers are simply expected to include an accessibility test for each component, reinforcing a culture of inclusive design from the outset.
+
+## Sports Sections Completed
+
+- Soccer
+
 ## Sports Section Under Development
 
 - Fantasy Football
 - Professional Basketball
 - Professional Baseball
-- Soccer
 
 ## Installation
 
-To set up the project locally, follow these steps:
+This project is designed to work with Node.js version 21. Please use your preferred Node version manager to ensure you're using Node 21 before proceeding. To set up the project locally, follow these steps:
 
 1. **Clone the Repository**
 
    ```
-   git clone git@github.com:plopez9/nextjs-practice-website.git
+   git clone https://github.com/plopeziv/Capstone-Demo.git
    ```
 
 2. **Install Dependencies**
 
    ```
-   cd react-stat-viewer
    npm install
    ```
 
@@ -40,8 +44,10 @@ To set up the project locally, follow these steps:
 
 ### Run the project
 
+> **Note:** This project is intended to showcase skills, so npm start and build have not been aliased. Please use npm run dev to start the development server.
+
 ```sh
-npm run start
+npm run dev
 ```
 
 ### Lint the code
@@ -88,7 +94,7 @@ This project prioritizes accessibility from the development stage by integrating
 
 This repository uses GitHub Actions to automate the CI/CD pipeline. The pipeline runs only on push events to the main branch and is not triggered for other branches.
 
-Workflow Overview
+#### Workflow Overview
 
 1. Checks out Repo
 2. Sets up Node.js (version 21.7) and caches dependencies
@@ -97,12 +103,35 @@ Workflow Overview
 5. Checks Linting
 6. Runs unit-tests
 
-Passing Criteria
+#### Passing Criteria
 
 - The pipeline must pass both linting and tests for the workflow to succeed.
 - If any step fails, the workflow stops, and changes will not be merged into main.
 
 To manually trigger the workflow for other branches, consider running it via GitHub Actions → Workflow Dispatch.
+
+## Rest API
+
+This project interacts with the free public REST API provided by [football-data.org](https://www.football-data.org/). Authentication is required regardless of payment structure. The project makes requests to the following endpoints:
+
+- Competition Standings: – to fetch current league tables and team rankings.
+
+- Competition Top Scorers: – to retrieve data on the Premier League's leading goal scorers.
+
+## Environment Variables
+
+### Setting Up Your Own Environment
+
+If you're running this project after the evaluation:
+
+1. Create a `.env.local` file at the root of the project.
+2. Add your own API token like this:
+
+```env
+NEXT_PUBLIC_FOOTBALL_API_TOKEN=your_personal_token_here
+```
+
+You can obtain a free token by signing up at [football-data.org](https://www.football-data.org/).
 
 ## Learn More
 
@@ -120,3 +149,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Credits
+
+This project utilized the REST API provided by [football-data.org](https://www.football-data.org/). Many thanks to them for offering comprehensive and reliable football data for development and testing purposes.
