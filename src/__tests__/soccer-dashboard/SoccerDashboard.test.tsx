@@ -47,7 +47,9 @@ describe("<SoccerDashboard />", () => {
     render(<SoccerDashboard />);
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith("/api/standings");
+      expect(global.fetch).toHaveBeenCalledWith(
+        "/api/soccer-dashboard/standings"
+      );
     });
   });
 
