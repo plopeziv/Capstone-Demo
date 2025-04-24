@@ -11,8 +11,9 @@ export default function SoccerLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="bg-[url('/background_images/soccer_pitch.jpg')] bg-cover bg-center">
+      <div className="h-[68px]"></div>
       <main>
-        <div className="h-screen flex flex-col justify-center items-center -translate-y-3">
+        <div className="h-[calc(100vh-68px)] flex flex-col justify-center items-center -translate-y-3">
           {children}
         </div>
       </main>

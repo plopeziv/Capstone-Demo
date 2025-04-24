@@ -1,0 +1,26 @@
+[
+  {
+    "company": "8th Light",
+    "tenure": "May 2024 - Apr 2025",
+    "title": "Ticketmaster: Backend Developer",
+    "jobSummary": "Back-end development using Java, Spring Boot, and Kafka. Worked on modernizing legacy Java microservices, enhancing observability with Splunk, Grafana, and Prometheus, building API endpoints connected to production databases, and maintaining deployment workflows through GitLab CI/CD pipelines."
+  },
+  {
+    "company": "8th Light",
+    "tenure": "Sept 2022 - Apr 2024",
+    "title": "Engage2Learn: Fullstack Engineer",
+    "jobSummary": "Full stack development with AngularJS, TypeScript, PHP, and Bootstrap. Developed dashboards from Figma wireframes, created a data visualization component library with ECharts.js, integrated third-party libraries like Google Analytics and Chatbots, and monitored REST endpoints with Postman."
+  },
+  {
+    "company": "8th Light",
+    "tenure": "Mar 2022 - Sept 2022",
+    "title": "SUBSCRIBE: Fullstack Engineer",
+    "jobSummary": "Full stack development following agile and scrum processes. Front-end development with React, TypeScript, and Jest, ensuring full test coverage. Managed migrations, merges, and backfills using Ruby on Rails."
+  },
+  {
+    "company": "8th Light",
+    "tenure": "Sept 2021 - Mar 2022",
+    "title": "Apprentice",
+    "jobSummary": "Collaborated with senior engineers on a legal service platform using React, GraphQL, and Jest. Delivered enterprise legal features while learning programming practices such as Test-Driven Development, refactoring, and both functional and object-oriented programming."
+  }
+]
