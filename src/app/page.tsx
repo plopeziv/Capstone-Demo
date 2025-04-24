@@ -22,12 +22,12 @@ export default function Home() {
           >
             <div className="flex flex-col justify-center items-center">
               <h2 className="text-2xl lg:text-4xl">{job.company}</h2>
-              <p className="text-sm lg:text-md">{job.tenure}</p>
+              <p className="text-[12px] md:text-sm lg:text-md">{job.tenure}</p>
             </div>
 
             <div className="col-span-3 flex flex-col justify-center items-center border-l border-[rgb(61,61,62)]">
               <h2 className="text-xl lg:text-3xl">{job.title}</h2>
-              <p className=" mt-2 mx-4 text-justify text-[13px] lg:text-sm">
+              <p className=" mt-2 mx-4 text-justify text-[13px] md:text-sm">
                 {job.jobSummary}
               </p>
             </div>
