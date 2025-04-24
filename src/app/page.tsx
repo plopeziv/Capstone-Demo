@@ -5,6 +5,7 @@ import jobs from "./scratch/resume_jobs.json";
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#1E1E1F] bg-cover bg-center">
+      <div className="h-[68px]"></div>
       <main className="grid grid-cols-1 lg:grid-cols-3 justify-center items-center">
         <div className="mx-5 mt-5 p-8 flex flex-col text-center justify-center items-center bg-[#222223] rounded-lg border border-gray-600 shadow-[inset_4px_4px_8px_rgba(255,255,255,0.1),_inset_-4px_-4px_8px_rgba(0,0,0,0.5)]">
           <Image
