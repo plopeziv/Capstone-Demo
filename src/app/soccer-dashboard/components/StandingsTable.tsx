@@ -138,7 +138,7 @@ export default function StandingsTable(props) {
               index % 2 === 0
                 ? "bg-[rgba(141,153,174,0.88)]"
                 : "bg-[rgba(224, 232, 235, 0.88)]"
-            } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default`}
+            } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default hover:cursor-pointer`}
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id} className="px-1">
