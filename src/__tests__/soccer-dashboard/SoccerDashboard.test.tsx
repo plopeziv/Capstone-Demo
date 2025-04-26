@@ -29,10 +29,12 @@ afterEach(() => {
 
 expect.extend(toHaveNoViolations);
 describe("<SoccerDashboard />", () => {
-  test("It should render a loading spinner when loading", () => {
+  test("It should render a loading spinner when loading", async () => {
     render(<SoccerDashboard />);
 
-    expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
+    const spinner = await screen.findByTestId("loading-spinner");
+
+    expect(spinner).toBeInTheDocument();
   });
 
   test("It should render a table when loaded", async () => {
@@ -55,7 +57,7 @@ describe("<SoccerDashboard />", () => {
 
   test("It should be accessible", async () => {
     const { container } = render(<SoccerDashboard />);
-    const results = await axe(container);
+    const results = await waitFor(() => axe(container));
 
     expect(results).toHaveNoViolations();
   });
