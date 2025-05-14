@@ -10,10 +10,10 @@ export default function SoccerLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="bg-[url('/background_images/soccer_pitch.jpg')] bg-cover bg-center">
+    <div className="bg-[url('/background_images/soccer_pitch.jpg')] bg-cover bg-center flex flex-col">
       <div className="h-[68px]"></div>
       <main>
-        <div className="h-[calc(100vh-68px)] flex flex-col justify-center items-center -translate-y-3">
+        <div className="h-[calc(100vh-68px)] flex flex-col justify-center items-center flex-1">
           {children}
         </div>
       </main>

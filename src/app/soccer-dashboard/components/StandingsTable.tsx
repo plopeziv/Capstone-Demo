@@ -50,15 +50,14 @@ export default function StandingsTable(props) {
 
   const emptyRows = 20 - rowData.length;
 
-  const hiddenColumns = [
+  const smallHiddenColumns = [
     "goalDifference",
     "goalsFor",
     "goalsAgainst",
     "playedGames",
-    "won",
-    "draw",
-    "lost",
   ];
+
+  const mediumHiddenColumns = ["won", "draw", "lost"];
 
   const handleClick = (teamName: string) => {
     router.push(`/soccer-dashboard/scoring-leaders/${slugify(teamName)}`);
@@ -74,6 +73,18 @@ export default function StandingsTable(props) {
     return text.replace(/\s+/g, "_");
   };
 
+  const hideColumns = (columnId: string) => {
+    if (smallHiddenColumns.includes(columnId)) {
+      return "px-1 min-w-[90px] cursor-pointer hidden lg:table-cell";
+    }
+
+    if (mediumHiddenColumns.includes(columnId)) {
+      return "px-1 min-w-[90px] cursor-pointer hidden md:table-cell";
+    }
+
+    return "px-1 min-w-[90px] cursor-pointer";
+  };
+
   const standingsTable = useReactTable({
     data: rowData,
     columns: tableHeaders,
@@ -85,7 +96,7 @@ export default function StandingsTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-sm md:text-[1rem] w-[340px] md:w-full lg:w-[1000px] ">
+    <table className="text-center text-base text-xs md:text-[14px] w-[340px] md:w-full lg:w-[1000px] ">
       <caption id="table-caption" className="sr-only">
         Premier League Table displaying team positions, played games, wins,
         draws, losses, goals, and points.
@@ -95,9 +106,7 @@ export default function StandingsTable(props) {
         {standingsTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
-              const headerClassName = hiddenColumns.includes(header.id)
-                ? "px-1 min-w-[90px] cursor-pointer hidden lg:table-cell"
-                : "px-1 min-w-[90px] cursor-pointer";
+              const headerClassName = hideColumns(header.id);
               return (
                 <th
                   key={header.id}
@@ -154,13 +163,11 @@ export default function StandingsTable(props) {
                 index % 2 === 0
                   ? "bg-[rgba(141,153,174,0.88)]"
                   : "bg-[rgba(224, 232, 235, 0.88)]"
-              } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default hover:cursor-pointer`}
+              } hover:bg-[rgba(180,200,220,0.88)] h-[25px] sm:h-[30px] cursor-default hover:cursor-pointer`}
             >
               {row.getVisibleCells().map((cell) => {
                 console.log(cell.column.id);
-                const rowClassName = hiddenColumns.includes(cell.column.id)
-                  ? "px-1 hidden lg:table-cell"
-                  : "px-1";
+                const rowClassName = hideColumns(cell.column.id);
                 return (
                   <td key={cell.id} className={rowClassName}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

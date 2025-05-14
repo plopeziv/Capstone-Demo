@@ -20,7 +20,7 @@ export default function SoccerDashboard() {
             ...item,
             name: item.team.name,
           }));
-          // setRowData(extractedData);
+          setRowData(extractedData);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -31,12 +31,12 @@ export default function SoccerDashboard() {
     fetchData();
   }, []);
   return (
-    <div className="h-[80vh] flex flex-col justify-center items-center">
+    <div className="h-[80vh] flex flex-col justify-center items-center ">
       <h1 className="text-3xl md:text-4xl lg:text-5xl mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
         Premier League Table
       </h1>
       {isLoading ? (
-        <div className="flex flex-col justify-center items-center h-[626px] w-[1100px] bg-[rgba(141,153,174,0.88)]">
+        <div className="flex flex-col justify-center items-center h-[626px] w-[340px] md:w-full lg:w-[1000px] bg-[rgba(141,153,174,0.88)]">
           <ScaleLoader
             data-testid="loading-spinner"
             height={80}
