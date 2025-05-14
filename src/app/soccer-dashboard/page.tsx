@@ -20,7 +20,7 @@ export default function SoccerDashboard() {
             ...item,
             name: item.team.name,
           }));
-          setRowData(extractedData);
+          // setRowData(extractedData);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -31,8 +31,8 @@ export default function SoccerDashboard() {
     fetchData();
   }, []);
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <h1 className="text-5xl mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+    <div className="h-[80vh] flex flex-col justify-center items-center">
+      <h1 className="text-3xl md:text-4xl lg:text-5xl mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
         Premier League Table
       </h1>
       {isLoading ? (
@@ -49,7 +49,6 @@ export default function SoccerDashboard() {
           <h2 className="mt-5 text-white text-2xl font-bold">Loading...</h2>
         </div>
       ) : (
-        // <div></div>
         <StandingsTable rowData={rowData} />
       )}
     </div>

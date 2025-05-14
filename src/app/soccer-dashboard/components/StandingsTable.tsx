@@ -50,6 +50,16 @@ export default function StandingsTable(props) {
 
   const emptyRows = 20 - rowData.length;
 
+  const hiddenColumns = [
+    "goalDifference",
+    "goalsFor",
+    "goalsAgainst",
+    "playedGames",
+    "won",
+    "draw",
+    "lost",
+  ];
+
   const handleClick = (teamName: string) => {
     router.push(`/soccer-dashboard/scoring-leaders/${slugify(teamName)}`);
   };
@@ -75,7 +85,7 @@ export default function StandingsTable(props) {
   });
 
   return (
-    <table className="text-center text-base w-[1100px]">
+    <table className="text-center text-base text-sm md:text-[1rem] w-[340px] md:w-full lg:w-[1000px] ">
       <caption id="table-caption" className="sr-only">
         Premier League Table displaying team positions, played games, wins,
         draws, losses, goals, and points.
@@ -84,69 +94,82 @@ export default function StandingsTable(props) {
       <thead className="bg-[#2b2d42]">
         {standingsTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th
-                key={header.id}
-                role="columnheader"
-                scope="col"
-                tabIndex={0}
-                className="px-1 min-w-[90px] cursor-pointer"
-                onClick={header.column.getToggleSortingHandler()}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    header.column.getToggleSortingHandler()(e);
+            {headerGroup.headers.map((header) => {
+              const headerClassName = hiddenColumns.includes(header.id)
+                ? "px-1 min-w-[90px] cursor-pointer hidden lg:table-cell"
+                : "px-1 min-w-[90px] cursor-pointer";
+              return (
+                <th
+                  key={header.id}
+                  role="columnheader"
+                  scope="col"
+                  tabIndex={0}
+                  className={headerClassName}
+                  onClick={header.column.getToggleSortingHandler()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      header.column.getToggleSortingHandler()(e);
+                    }
+                  }}
+                  aria-sort={
+                    header.column.getIsSorted()
+                      ? header.column.getIsSorted() === "desc"
+                        ? "descending"
+                        : "ascending"
+                      : "none"
                   }
-                }}
-                aria-sort={
-                  header.column.getIsSorted()
-                    ? header.column.getIsSorted() === "desc"
-                      ? "descending"
-                      : "ascending"
-                    : "none"
-                }
-              >
-                {header.isPlaceholder ? null : (
-                  <div className="flex items-center justify-center gap-1">
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                    <span aria-hidden="true">
-                      {{
-                        asc: " ↑",
-                        desc: " ↓",
-                      }[header.column.getIsSorted() as string] ?? ""}
-                    </span>
-                  </div>
-                )}
-              </th>
-            ))}
+                >
+                  {header.isPlaceholder ? null : (
+                    <div className="flex items-center justify-center gap-1">
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                      <span aria-hidden="true">
+                        {{
+                          asc: " ↑",
+                          desc: " ↓",
+                        }[header.column.getIsSorted() as string] ?? ""}
+                      </span>
+                    </div>
+                  )}
+                </th>
+              );
+            })}
           </tr>
         ))}
       </thead>
 
       <tbody className="bg-[rgba(141,153,174,0.88)] ">
-        {standingsTable.getRowModel().rows.map((row, index) => (
-          <tr
-            key={row.id}
-            tabIndex={0}
-            role="row"
-            aria-label={`Row ${row.original.name} with ${row.original.points} points`}
-            onClick={() => handleClick(row.original.name)}
-            onKeyDown={(e) => handleKeyDown(e, row.original.name)}
-            className={`${
-              index % 2 === 0
-                ? "bg-[rgba(141,153,174,0.88)]"
-                : "bg-[rgba(224, 232, 235, 0.88)]"
-            } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default hover:cursor-pointer`}
-          >
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="px-1">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {standingsTable.getRowModel().rows.map((row, index) => {
+          return (
+            <tr
+              key={row.id}
+              tabIndex={0}
+              role="row"
+              aria-label={`Row ${row.original.name} with ${row.original.points} points`}
+              onClick={() => handleClick(row.original.name)}
+              onKeyDown={(e) => handleKeyDown(e, row.original.name)}
+              className={`${
+                index % 2 === 0
+                  ? "bg-[rgba(141,153,174,0.88)]"
+                  : "bg-[rgba(224, 232, 235, 0.88)]"
+              } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default hover:cursor-pointer`}
+            >
+              {row.getVisibleCells().map((cell) => {
+                console.log(cell.column.id);
+                const rowClassName = hiddenColumns.includes(cell.column.id)
+                  ? "px-1 hidden lg:table-cell"
+                  : "px-1";
+                return (
+                  <td key={cell.id} className={rowClassName}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
 
         {Array.from({ length: emptyRows }).map((_, idx) => (
           <tr
