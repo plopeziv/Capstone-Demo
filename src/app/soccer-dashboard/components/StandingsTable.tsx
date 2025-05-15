@@ -96,13 +96,13 @@ export default function StandingsTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-xs md:text-[14px] w-[340px] md:w-full lg:w-[1000px] ">
+    <table className="text-center text-base text-xs md:text-[14px] lg:text-[15px] w-[340px] md:w-full lg:w-[1000px] ">
       <caption id="table-caption" className="sr-only">
         Premier League Table displaying team positions, played games, wins,
         draws, losses, goals, and points.
       </caption>
 
-      <thead className="bg-[#2b2d42]">
+      <thead className="bg-[#2b2d42] text-[15px]">
         {standingsTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
