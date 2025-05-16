@@ -74,15 +74,16 @@ export default function StandingsTable(props) {
   };
 
   const hideColumns = (columnId: string) => {
+    const standardCSS = "px-1 min-w-[90px] cursor-pointer";
     if (smallHiddenColumns.includes(columnId)) {
-      return "px-1 min-w-[90px] cursor-pointer hidden lg:table-cell";
+      return `${standardCSS} hidden lg:table-cell`;
     }
 
     if (mediumHiddenColumns.includes(columnId)) {
-      return "px-1 min-w-[90px] cursor-pointer hidden md:table-cell";
+      return `${standardCSS} hidden md:table-cell`;
     }
 
-    return "px-1 min-w-[90px] cursor-pointer";
+    return standardCSS;
   };
 
   const standingsTable = useReactTable({
@@ -167,7 +168,7 @@ export default function StandingsTable(props) {
             >
               {row.getVisibleCells().map((cell) => {
                 console.log(cell.column.id);
-                const rowClassName = hideColumns(cell.column.id);
+                const rowClassName = hideColumns(cell.column.id, "");
                 return (
                   <td key={cell.id} className={rowClassName}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
