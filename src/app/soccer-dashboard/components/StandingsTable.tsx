@@ -167,8 +167,7 @@ export default function StandingsTable(props) {
               } hover:bg-[rgba(180,200,220,0.88)] h-[25px] sm:h-[30px] cursor-default hover:cursor-pointer`}
             >
               {row.getVisibleCells().map((cell) => {
-                console.log(cell.column.id);
-                const rowClassName = hideColumns(cell.column.id, "");
+                const rowClassName = hideColumns(cell.column.id);
                 return (
                   <td key={cell.id} className={rowClassName}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

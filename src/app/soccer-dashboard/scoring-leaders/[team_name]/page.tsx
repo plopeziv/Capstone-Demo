@@ -59,6 +59,12 @@ export default function ScoringLeaders() {
 
         const jsonData = await fetchResponse.json();
 
+        if (jsonData.errorCode) {
+          console.error(
+            `Error fetching response ${jsonData.errorCode}: ${jsonData.message}`
+          );
+        }
+
         const filteredPlayers = filterScorers(desluggedTeam, jsonData.scorers);
         setRowData(filteredPlayers);
       } catch (error) {
@@ -88,7 +94,7 @@ export default function ScoringLeaders() {
           <h2 className="mt-3 text-2xl">Loading...</h2>
         </div>
       ) : (
-        <div className="flex justify-center aspect-[16/9] bg-pink-600">
+        <div className="flex justify-center aspect-[16/9]">
           <TopSoccerPlayersTable rowData={rowData} />
         </div>
       )}

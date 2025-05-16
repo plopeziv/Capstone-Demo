@@ -15,6 +15,13 @@ export default function SoccerDashboard() {
         const fetchResponse = await fetch("/api/soccer-dashboard/standings");
 
         const jsonData = await fetchResponse.json();
+
+        if (jsonData.errorCode) {
+          console.error(
+            `Error fetching response ${jsonData.errorCode}: ${jsonData.message}`
+          );
+        }
+
         if (jsonData.standings) {
           const extractedData = jsonData.standings[0].table.map((item) => ({
             ...item,

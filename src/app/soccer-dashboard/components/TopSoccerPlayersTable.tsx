@@ -87,7 +87,7 @@ export default function TopSoccerPlayersTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-[10px] md:text-[15px] w-[340px] sm:w-[400px] md:w-[550px] lg:w-[900px]">
+    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px]">
       <caption id="scoring-table-caption" className="sr-only">
         Scoring table displaying player information, including name, date of
         birth, nationality, position, goals, assists, and matches played.
@@ -162,18 +162,21 @@ export default function TopSoccerPlayersTable(props) {
           </tr>
         ))}
 
-        {Array.from({ length: emptyRows }).map((_, idx) => (
-          <tr
-            key={`empty-${idx}`}
-            className={`${
-              idx % 2 === 0
-                ? "bg-[rgba(141,153,174,0.88)]"
-                : "bg-[rgba(224, 232, 235, 0.88)]"
-            } hover:bg-[rgba(180,200,220,0.88)]`}
-          >
-            <td colSpan={7} className="h-[30px]"></td>
-          </tr>
-        ))}
+        {Array.from({ length: emptyRows }).map((_, idx) => {
+          const baseIndex = 12 - emptyRows;
+          return (
+            <tr
+              key={`empty-${idx + baseIndex}`}
+              className={`${
+                (baseIndex + idx) % 2 === 0
+                  ? "bg-[rgba(141,153,174,0.88)]"
+                  : "bg-[rgba(224, 232, 235, 0.88)]"
+              } hover:bg-[rgba(180,200,220,0.88)]`}
+            >
+              <td colSpan={7} className="h-[30px]"></td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
