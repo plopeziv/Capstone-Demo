@@ -64,7 +64,7 @@ export default function ScoringLeaders() {
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
-      // setIsLoading(false);
+      setIsLoading(false);
     };
 
     fetchData();
@@ -88,7 +88,7 @@ export default function ScoringLeaders() {
           <h2 className="mt-3 text-2xl">Loading...</h2>
         </div>
       ) : (
-        <div className="flex justify-center">
+        <div className="flex justify-center aspect-[16/9] bg-pink-600">
           <TopSoccerPlayersTable rowData={rowData} />
         </div>
       )}
