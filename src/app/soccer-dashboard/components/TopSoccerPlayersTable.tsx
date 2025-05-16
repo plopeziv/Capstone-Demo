@@ -58,6 +58,24 @@ export default function TopSoccerPlayersTable(props) {
   if (rowData?.length) {
     emptyRows = 12 - rowData.length;
   }
+
+  const smallHiddenColumns = ["dateOfBirth", "nationality"];
+
+  const mediumHiddenColumns = ["position"];
+
+  const hideColumns = (columnId: string) => {
+    const standardCSS = "px-2";
+    if (smallHiddenColumns.includes(columnId)) {
+      return `${standardCSS} hidden lg:table-cell`;
+    }
+
+    if (mediumHiddenColumns.includes(columnId)) {
+      return `${standardCSS} hidden md:table-cell`;
+    }
+
+    return standardCSS;
+  };
+
   const scoringTable = useReactTable({
     data: rowData,
     columns: tableHeaders,
@@ -69,52 +87,55 @@ export default function TopSoccerPlayersTable(props) {
   });
 
   return (
-    <table className="text-center text-base w-[820px]">
+    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px]">
       <caption id="scoring-table-caption" className="sr-only">
         Scoring table displaying player information, including name, date of
         birth, nationality, position, goals, assists, and matches played.
       </caption>
 
-      <thead className="bg-[#2b2d42]">
+      <thead className="bg-[#2b2d42] text-[15px]">
         {scoringTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th
-                key={header.id}
-                role="columnheader"
-                scope="col"
-                tabIndex={0}
-                className="px-3 min-w-[90px] cursor-pointer"
-                onClick={header.column.getToggleSortingHandler()}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    header.column.getToggleSortingHandler()(e);
+            {headerGroup.headers.map((header) => {
+              const headerClassName = hideColumns(header.id);
+              return (
+                <th
+                  key={header.id}
+                  role="columnheader"
+                  scope="col"
+                  tabIndex={0}
+                  className={headerClassName}
+                  onClick={header.column.getToggleSortingHandler()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      header.column.getToggleSortingHandler()(e);
+                    }
+                  }}
+                  aria-sort={
+                    header.column.getIsSorted()
+                      ? header.column.getIsSorted() === "desc"
+                        ? "descending"
+                        : "ascending"
+                      : "none"
                   }
-                }}
-                aria-sort={
-                  header.column.getIsSorted()
-                    ? header.column.getIsSorted() === "desc"
-                      ? "descending"
-                      : "ascending"
-                    : "none"
-                }
-              >
-                {header.isPlaceholder ? null : (
-                  <div className="flex items-center justify-center gap-1">
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                    <span aria-hidden="true">
-                      {{
-                        asc: " ↑",
-                        desc: " ↓",
-                      }[header.column.getIsSorted() as string] ?? ""}
-                    </span>
-                  </div>
-                )}
-              </th>
-            ))}
+                >
+                  {header.isPlaceholder ? null : (
+                    <div className="flex items-center justify-center gap-1">
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                      <span aria-hidden="true">
+                        {{
+                          asc: " ↑",
+                          desc: " ↓",
+                        }[header.column.getIsSorted() as string] ?? ""}
+                      </span>
+                    </div>
+                  )}
+                </th>
+              );
+            })}
           </tr>
         ))}
       </thead>
@@ -130,26 +151,32 @@ export default function TopSoccerPlayersTable(props) {
                 : "bg-[rgba(224, 232, 235, 0.88)]"
             } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default`}
           >
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="px-2">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
+            {row.getVisibleCells().map((cell) => {
+              const rowClassName = hideColumns(cell.column.id);
+              return (
+                <td key={cell.id} className={rowClassName}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              );
+            })}
           </tr>
         ))}
 
-        {Array.from({ length: emptyRows }).map((_, idx) => (
-          <tr
-            key={`empty-${idx}`}
-            className={`${
-              idx % 2 === 0
-                ? "bg-[rgba(141,153,174,0.88)]"
-                : "bg-[rgba(224, 232, 235, 0.88)]"
-            } hover:bg-[rgba(180,200,220,0.88)]`}
-          >
-            <td colSpan={7} className="h-[30px]"></td>
-          </tr>
-        ))}
+        {Array.from({ length: emptyRows }).map((_, idx) => {
+          const baseIndex = 12 - emptyRows;
+          return (
+            <tr
+              key={`empty-${idx + baseIndex}`}
+              className={`${
+                (baseIndex + idx) % 2 === 0
+                  ? "bg-[rgba(141,153,174,0.88)]"
+                  : "bg-[rgba(224, 232, 235, 0.88)]"
+              } hover:bg-[rgba(180,200,220,0.88)]`}
+            >
+              <td colSpan={7} className="h-[30px]"></td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
