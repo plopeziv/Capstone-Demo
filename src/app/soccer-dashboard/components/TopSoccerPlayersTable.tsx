@@ -87,7 +87,7 @@ export default function TopSoccerPlayersTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px]">
+    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px] max-w-[95vw]">
       <caption id="scoring-table-caption" className="sr-only">
         Scoring table displaying player information, including name, date of
         birth, nationality, position, goals, assists, and matches played.
