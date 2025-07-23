@@ -191,9 +191,25 @@ export default function MlbDashboard() {
           </p>
         </section>
 
-        <section id="introduction" className="my-6 text-justify">
-          <h2 className="text-3xl mb-3">Methodology</h2>
-          <div className="w-full max-w-[900px] aspect-[4/3] bg-red-400">
+        <section id="methodology" className="my-6 text-justify">
+          <h2 className="text-3xl mb-3">Experimental Setup</h2>
+          <p>
+            A full cone nozzle was operated at a pressure of 20 psi, with the
+            measurement plane positioned 20 inches downstream from the nozzle
+            orifice. A thin laser sheet was projected perpendicularly through
+            the spray at this location, illuminating a planar cross-section of
+            the spray volume.
+          </p>
+          <p className="mt-2">
+            A camera was positioned 45 degrees above the laser plane and
+            downstream from the laser source. This angled setup allowed it to
+            capture the scattered light intensity from the droplets. A total of
+            500 successive images were recorded and averaged to produce a single
+            two-dimensional image representing the spatial distribution of
+            droplets within the illuminated plane.
+          </p>
+
+          <div className="w-full max-w-[900px] aspect-[4/3]">
             {options && (
               <ReactECharts
                 option={options}
