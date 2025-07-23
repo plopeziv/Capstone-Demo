@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SprayDataProfile } from "../../services/SprayDataProfile";
 
 import ReactECharts from "echarts-for-react";
+import "echarts-gl";
 
 export default function MlbDashboard() {
   const [options, setOptions] = useState(null);
@@ -16,25 +17,64 @@ export default function MlbDashboard() {
       await profile.loadData();
       profile.formatToEcharts();
 
-      const xLabels = [...new Set(profile.formattedMatrix.map(([x]) => x))];
-      const yLabels = [...new Set(profile.formattedMatrix.map(([, y]) => y))];
+      const xLabels = [
+        ...new Set(profile.formattedMatrix.map(([, x]) => x - 62)),
+      ];
+      const yLabels = [
+        ...new Set(profile.formattedMatrix.map(([, y]) => y - 62)),
+      ];
 
       const min = profile.getMin();
       const max = profile.getMax();
 
       setOptions({
-        xAxis: {
+        xAxis3D: {
           type: "category",
           data: xLabels,
+          axisLabel: {
+            color: "#ffffff",
+          },
+          nameTextStyle: {
+            color: "#ffffff",
+          },
+          axisPointer: {
+            show: false,
+          },
         },
-        yAxis: {
+        yAxis3D: {
           type: "category",
+          name: "",
           data: yLabels,
+          axisLabel: { show: false },
+          axisTick: { show: false },
+          axisPointer: {
+            show: false,
+          },
+        },
+        zAxis3D: {
+          type: "value",
+          axisLabel: {
+            color: "#ffffff",
+          },
+          nameTextStyle: {
+            color: "#ffffff",
+          },
+          axisPointer: {
+            show: false,
+          },
+        },
+        grid3D: {
+          viewControl: {
+            projection: "perspective",
+            distance: 195,
+            alpha: 5,
+            beta: -1,
+          },
         },
         visualMap: {
           min,
           max,
-          calculable: true,
+          show: false,
           orient: "horizontal",
           left: "center",
           bottom: "5%",
@@ -51,7 +91,7 @@ export default function MlbDashboard() {
         tooltip: { show: false },
         series: [
           {
-            type: "heatmap",
+            type: "scatter3D",
             data: profile.formattedMatrix,
             label: {
               show: false,
@@ -66,13 +106,19 @@ export default function MlbDashboard() {
     load();
   }, []);
   return (
-    <div className="h-screen flex justify-center items-center bg-[url('/background_images/home_plate.jpg')] bg-cover bg-center">
-      {options && (
-        <ReactECharts
-          option={options}
-          style={{ height: "100%", width: "100%" }}
-        />
-      )}
+    <div className="min-h-screen flex flex-col justify-center items-center bg-[url('/background_images/industrial_pipes.png')] bg-cover bg-center p-4">
+      <h1 className="text-4xl">Introduction to Laser Sheet Imaging (LSI) </h1>
+      <div className="w-full max-w-[900px] aspect-[4/3]">
+        {options && (
+          <ReactECharts
+            option={options}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 }

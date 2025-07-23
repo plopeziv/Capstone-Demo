@@ -15,6 +15,7 @@
     "@tanstack/react-table": "^8.21.3",
     "echarts": "^5.6.0",
     "echarts-for-react": "^3.0.2",
+    "echarts-gl": "^2.0.9",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
