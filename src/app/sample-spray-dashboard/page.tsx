@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { SprayDataProfile } from "../../services/SprayDataProfile";
 
+import Histogram from "./components/Histogram";
+
 import ReactECharts from "echarts-for-react";
 import "echarts-gl";
 
@@ -12,7 +14,7 @@ export default function MlbDashboard() {
   useEffect(() => {
     const load = async () => {
       const profile = new SprayDataProfile(
-        "/spray_data/FMX030-20_Z26.5(IN).txt"
+        "/spray_data/FMX030-20_Z20.5(IN).txt"
       );
       await profile.loadData();
       profile.formatToEcharts();
@@ -29,10 +31,13 @@ export default function MlbDashboard() {
 
       setOptions({
         xAxis3D: {
-          type: "category",
+          type: "value",
           data: xLabels,
           axisLabel: {
             color: "#ffffff",
+            formatter: function (val) {
+              return val - 60;
+            },
           },
           nameTextStyle: {
             color: "#ffffff",
@@ -107,13 +112,16 @@ export default function MlbDashboard() {
   }, []);
   return (
     <div className="min-h-screen flex flex-col bg-[url('/background_images/industrial_pipes.png')] bg-cover bg-center p-4">
-      <div className="mt-14">
+      <div className="mt-20">
         <h1 className="text-4xl text-center">
-          Introduction to Laser Sheet Imaging (LSI){" "}
+          Introduction to Laser Sheet Imaging (LSI)
         </h1>
       </div>
-      <div>
-        <section id="introduction" className="my-6 text-justify">
+      <div className="columns-1 lg:columns-2 gap-6 max-w-screen-xl mx-auto mt-12">
+        <section
+          id="introduction"
+          className="mb-6 text-justify max-w-[800px] bg-[#222223] p-5 rounded-lg border border-gray-600 shadow-[inset_4px_4px_8px_rgba(255,255,255,0.1),_inset_-4px_-4px_8px_rgba(0,0,0,0.5)]"
+        >
           <h2 className="text-3xl mb-3">Introduction</h2>
           <p>
             Understanding the behavior of sprays—how they form, spread, and
@@ -134,7 +142,10 @@ export default function MlbDashboard() {
             industrial practice.
           </p>
         </section>
-        <section id="introduction" className="my-6 text-justify">
+        <section
+          id="introduction"
+          className="break-inside-avoid my-6 text-justify max-w-[800px] bg-[#222223] p-5 rounded-lg border border-gray-600 shadow-[inset_4px_4px_8px_rgba(255,255,255,0.1),_inset_-4px_-4px_8px_rgba(0,0,0,0.5)]"
+        >
           <h2 className="text-3xl mb-3">What is Laser Sheet Imaging?</h2>
           <p>
             Laser Sheet Imaging (LSI) is a non-intrusive optical method used to
@@ -146,7 +157,7 @@ export default function MlbDashboard() {
             for detailed spray analysis.
           </p>
 
-          <p className="mt-2">Here’s how it works:</p>
+          <p className="mt-2 font-bold">Here’s how it works:</p>
 
           <ul className="mt-2 list-decimal pl-6 space-y-2">
             <li>
@@ -191,7 +202,10 @@ export default function MlbDashboard() {
           </p>
         </section>
 
-        <section id="methodology" className="my-6 text-justify">
+        <section
+          id="methodology"
+          className="my-6 text-justify max-w-[800px] bg-[#222223] p-5 rounded-lg border border-gray-600 shadow-[inset_4px_4px_8px_rgba(255,255,255,0.1),_inset_-4px_-4px_8px_rgba(0,0,0,0.5)]"
+        >
           <h2 className="text-3xl mb-3">Experimental Setup</h2>
           <p>
             A full cone nozzle was operated at a pressure of 20 psi, with the
@@ -208,8 +222,25 @@ export default function MlbDashboard() {
             two-dimensional image representing the spatial distribution of
             droplets within the illuminated plane.
           </p>
+        </section>
 
-          <div className="w-full max-w-[900px] aspect-[4/3]">
+        <section id="results" className="my-6 text-justify max-w-[800px]">
+          <div className="bg-[#222223] p-5 rounded-lg border border-gray-600 shadow-[inset_4px_4px_8px_rgba(255,255,255,0.1),_inset_-4px_-4px_8px_rgba(0,0,0,0.5)]">
+            <h2 className="text-3xl mb-3">Results</h2>
+            <p className="mt-2">
+              The 3D visualization of the spray data illustrates intensity as a
+              function of position, offering a volumetric view of droplet
+              concentration across the spray field. The results show that spray
+              concentration is highest at the centerline of the nozzle and
+              diminishes toward the outer edges. The data exhibits an
+              exponential decrease in intensity from the center to the
+              periphery, highlighting a significant difference in scale between
+              the dense core and the outer spray regions. This contrast
+              demonstrates how a full cone spray can quickly lose it&apos;s
+              effectiveness over distance.
+            </p>
+          </div>
+          <div className="w-full max-w-[900px] aspect-[4/3] mt-6">
             {options && (
               <ReactECharts
                 option={options}
@@ -220,6 +251,14 @@ export default function MlbDashboard() {
               />
             )}
           </div>
+        </section>
+
+        <section id="results" className="my-6 text-justify max-w-[800px]">
+          <div className="bg-[#222223] p-5 rounded-lg border border-gray-600 shadow-[inset_4px_4px_8px_rgba(255,255,255,0.1),_inset_-4px_-4px_8px_rgba(0,0,0,0.5)]">
+            <p className="mt-2">abc</p>
+          </div>
+
+          <Histogram />
         </section>
       </div>
     </div>
