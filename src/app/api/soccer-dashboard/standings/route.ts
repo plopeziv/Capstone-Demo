@@ -1,6 +1,6 @@
 export async function GET() {
   const response = await fetch(
-    "http://api.football-data.org/v4/competitions/PL/standings",
+    "http://api.football-data.org/v4/competitions/PL/standings?season=2024",
     {
       headers: { "X-Auth-Token": process.env.NEXT_PUBLIC_FOOTBALL_API_TOKEN },
     }
