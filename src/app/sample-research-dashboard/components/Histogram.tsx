@@ -39,15 +39,25 @@ export default function Histogram() {
         setOptions({
           yAxis: {
             type: "value",
+            axisLabel: {
+              color: "#ffffff",
+            },
           },
           xAxis: {
             type: "category",
+            name: "X (mm)",
+            nameGap: 25,
+            nameLocation: "middle",
             data: downSample.map((_, index) => (index - 60).toString()),
             interval: 0,
             axisLabel: {
+              color: "#ffffff",
               formatter: function (value) {
-                return value % 15 === 0 ? value : "";
+                return value % 2 === 0 ? value : "";
               },
+            },
+            nameTextStyle: {
+              color: "#ffffff",
             },
           },
           series: [
