@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 import HamburgerIcon from "./HamburgerIcon";
 import { routingLinks } from "../../utils/links";
+import { usePathname } from "next/navigation";
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathName = usePathname();
 
   const closeSideNav = () => {
     setIsOpen(false);
@@ -16,6 +18,10 @@ export default function SideNav() {
   const openSideNav = () => {
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    closeSideNav();
+  }, [pathName]);
 
   return (
     <div className="md:hidden">
