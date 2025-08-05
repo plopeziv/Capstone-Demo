@@ -14,20 +14,11 @@ export class SprayDataProfile {
 
     let rows = fileText.trim().split("\n");
 
-    console.log("Total rows before filtering:", rows.length);
-
     rows = rows.filter((row) => !row.startsWith("#") && /\d/.test(row));
 
     this.originaMatrix = rows.map((row) => row.trim().split(/\s+/).map(Number));
 
-    console.log("Original matrix length ", this.originaMatrix.length);
-    console.log(`${this.filePath} loaded!`);
-
     this.originaMatrix = this.downSampleMatrix(this.originaMatrix, 3, 3);
-    console.log(
-      "Formatted matrix has been downsized to ",
-      this.originaMatrix.length
-    );
   }
 
   downSampleMatrix(inputMatrix, xDownSample, yDownSample) {
@@ -84,8 +75,6 @@ export class SprayDataProfile {
         }
       }
     }
-
-    console.log(this.formattedMatrix);
   }
 
   getMin() {
