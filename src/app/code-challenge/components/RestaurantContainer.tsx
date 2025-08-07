@@ -3,9 +3,14 @@
 import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 
+import { useMunchiesStore } from "../../../stores/useMunchiesStore";
+
 export default function RestaurantContainer() {
   const [isLoading, setIsLoading] = useState(true);
+  const [originalData, setOriginalData] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+
+  const activeFilters = useMunchiesStore((state) => state.cuisineFilters);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +21,8 @@ export default function RestaurantContainer() {
         const jsonData = await fetchResponse.json();
 
         if (jsonData.restaurants) {
-          setRestaurants(jsonData.restaurants);
+          setOriginalData(jsonData.restaurants);
+          setRestaurants(originalData);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -26,6 +32,14 @@ export default function RestaurantContainer() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const filteredData = originalData.filter((restaurant) =>
+      restaurant.filter_ids.some((filterId) => activeFilters.includes(filterId))
+    );
+
+    setRestaurants(filteredData);
+  }, [activeFilters, originalData]);
 
   return (
     <div className="rounded-md flex-1">
