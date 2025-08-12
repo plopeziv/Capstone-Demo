@@ -15,7 +15,7 @@ export default function FoodCard(props) {
   return (
     <button
       onClick={() => toggleFilter(foodFilterData.id)}
-      className={`w-[160px] h-[80px] rounded-md p-1 text-[14px] flex justify-between cursor-pointer transition-all
+      className={`shrink-0 w-[160px] h-[80px] rounded-md p-1 text-[14px] flex justify-between cursor-pointer transition-all
         bg-white shadow-xl shadow-black/5
         ${isActive ? "ring ring-blue-400 shadow-lg shadow-blue-500/50" : ""}`}
     >

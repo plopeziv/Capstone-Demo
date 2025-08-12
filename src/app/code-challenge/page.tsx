@@ -11,7 +11,7 @@ export default function MunchiesPage() {
       <div className="flex-1">
         <main className="flex h-full space-x-4 text-black">
           <FilterCard />
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 min-w-0 flex flex-col">
             <FoodContainer />
             <div className="my-4 text-[40px]">Restaurant&apos;s</div>
             <RestaurantContainer />

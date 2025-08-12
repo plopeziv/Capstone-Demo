@@ -28,13 +28,13 @@ export default function FoodContainer() {
     fetchData();
   }, []);
   return (
-    <div className="w-full">
+    <div className="overflow-x-scroll">
       {isLoading ? (
-        <div className="h-[80px] flex items-center justify-center">
+        <div className="h-[105px] flex items-center justify-center">
           <BarLoader width={200} />
         </div>
       ) : (
-        <div className="flex flex-row gap-[10px]">
+        <div className="h-[105px] flex flex-row gap-[10px] items-center p-2">
           {foodFilters.map((filter) => (
             <FoodCard key={filter.id} foodFilterData={filter} />
           ))}
