@@ -1,9 +1,6 @@
 import { NextRequest } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { image: string } }
-) {
+export async function GET(req: NextRequest, context) {
   const { image } = await context.params;
 
   const remoteUrl = `https://work-test-web-2024-eze6j4scpq-lz.a.run.app/images/${image}`;
