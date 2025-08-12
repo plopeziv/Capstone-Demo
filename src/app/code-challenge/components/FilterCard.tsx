@@ -1,10 +1,39 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import CuisineFilter from "./CuisineFilter";
+
 export default function FilterCard() {
+  const [foodFilters, setFoodFilters] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchResponse = await fetch("/api/code-challenge/filter");
+
+        const jsonData = await fetchResponse.json();
+
+        if (jsonData.filters) {
+          setFoodFilters(jsonData.filters);
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="w-[239px] bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 p-[26px] text-[24px]">
       <span>Filter</span>
       <div className="text-[12px] my-5">
-        <div className="h-[80px]">
+        <div className="min-h-[80px]">
           <span className="opacity-40">Food Category</span>
+          <div className="flex flex-row flex-wrap gap-x-1">
+            {foodFilters.map((filter) => (
+              <CuisineFilter key={filter.id} foodFilterData={filter} />
+            ))}
+          </div>
         </div>
         <div className="mt-5">
           <span className="opacity-40">Delivery Time</span>
