@@ -34,6 +34,15 @@ export default function RestaurantContainer() {
   }, []);
 
   useEffect(() => {
+    const areFiltersEmpty = activeFilters.every(
+      (filterGroup) => filterGroup.length === 0
+    );
+
+    if (areFiltersEmpty) {
+      setRestaurants(originalData);
+      return;
+    }
+
     const filteredData = originalData.filter((restaurant) =>
       restaurant.filter_ids.some((filterId) => activeFilters.includes(filterId))
     );
@@ -41,19 +50,23 @@ export default function RestaurantContainer() {
     setRestaurants(filteredData);
   }, [activeFilters, originalData]);
 
-  return (
-    <div className="rounded-md flex-1">
-      {isLoading ? (
+  if (isLoading) {
+    return (
+      <div className="rounded-md flex-1">
         <div className=" h-full flex flex-col items-center justify-center">
           <span className="text-4xl mt-3">Loading!</span>
         </div>
-      ) : (
-        <div className="flex flex-wrap justify-start gap-2">
-          {restaurants.map((restaurant) => (
-            <RestaurantCard key={restaurant.id} restaurantData={restaurant} />
-          ))}
-        </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-md flex-1">
+      <div className="flex flex-wrap justify-start gap-2">
+        {restaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.id} restaurantData={restaurant} />
+        ))}
+      </div>
     </div>
   );
 }

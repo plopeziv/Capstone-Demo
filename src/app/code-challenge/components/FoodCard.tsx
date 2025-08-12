@@ -1,10 +1,24 @@
+"use client";
+
 import Image from "next/image";
+
+import { useMunchiesStore } from "../../../stores/useMunchiesStore";
 
 export default function FoodCard(props) {
   const foodFilterData = props.foodFilterData;
 
+  const toggleFilter = useMunchiesStore((state) => state.toggleCuisineFilter);
+  const cuisineFilters = useMunchiesStore((state) => state.cuisineFilters);
+
+  const isActive = cuisineFilters.includes(foodFilterData.id);
+
   return (
-    <div className="w-[160px] h-[80px] bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 text-[14px] flex justify-between">
+    <button
+      onClick={() => toggleFilter(foodFilterData.id)}
+      className={`w-[160px] h-[80px] rounded-md p-1 text-[14px] flex justify-between cursor-pointer transition-all
+        bg-white shadow-xl shadow-black/5
+        ${isActive ? "ring ring-blue-400 shadow-lg shadow-blue-500/50" : ""}`}
+    >
       <span>{foodFilterData.name}</span>
       <Image
         src={`/api/code-challenge${foodFilterData.image_url}`}
@@ -12,6 +26,6 @@ export default function FoodCard(props) {
         width={80}
         height={80}
       />
-    </div>
+    </button>
   );
 }

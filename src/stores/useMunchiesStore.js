@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 export const useMunchiesStore = create((set) => ({
-  cuisineFilters: ["59c5e8f0-8255-45e4-9674-1602e4f32998"],
-  price: null,
-  deliveryTime: null,
+  cuisineFilters: [],
+  price: [],
+  deliveryTime: [],
 
   addCuisineFilter: (cuisineFilter) =>
     set((state) =>
@@ -18,6 +18,20 @@ export const useMunchiesStore = create((set) => ({
         (cuisineItem) => cuisineItem !== cuisineFilter
       ),
     }));
+  },
+
+  toggleCuisineFilter: (cuisineFilter) => {
+    set((state) => {
+      const isFilterInState = state.cuisineFilters.includes(cuisineFilter);
+
+      return {
+        cuisineFilters: isFilterInState
+          ? state.cuisineFilters.filter(
+              (stateFilter) => stateFilter !== cuisineFilter
+            )
+          : [...state.cuisineFilters, cuisineFilter],
+      };
+    });
   },
 
   clearFilters: () =>
