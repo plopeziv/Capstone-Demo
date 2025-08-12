@@ -21,8 +21,8 @@ export default function RestaurantContainer() {
         const jsonData = await fetchResponse.json();
 
         if (jsonData.restaurants) {
-          setOriginalData(jsonData.restaurants);
-          setRestaurants(originalData);
+          setOriginalData(jsonData.restaurants || []);
+          setRestaurants(jsonData.originalData || []);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
