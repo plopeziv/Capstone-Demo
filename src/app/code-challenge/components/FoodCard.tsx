@@ -8,7 +8,9 @@ export default function FoodCard(props) {
   const foodFilterData = props.foodFilterData;
 
   const toggleFilter = useMunchiesStore((state) => state.toggleCuisineFilter);
-  const cuisineFilters = useMunchiesStore((state) => state.cuisineFilters);
+  const cuisineFilters = useMunchiesStore(
+    (state) => state.filters.cuisineFilters
+  );
 
   const isActive = cuisineFilters.includes(foodFilterData.id);
 

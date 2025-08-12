@@ -10,7 +10,9 @@ export default function RestaurantContainer() {
   const [originalData, setOriginalData] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
 
-  const activeFilters = useMunchiesStore((state) => state.cuisineFilters);
+  const activeFilters = useMunchiesStore(
+    (state) => state.filters.cuisineFilters
+  );
 
   useEffect(() => {
     const fetchData = async () => {
