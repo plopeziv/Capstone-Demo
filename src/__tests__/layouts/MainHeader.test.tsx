@@ -2,12 +2,13 @@ import MainHeader from "../../app/components/MainHeader";
 import { routingLinks } from "../../utils/links";
 import { screen, render, waitFor } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 expect.extend(toHaveNoViolations);
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
+  usePathname: jest.fn(),
 }));
 
 describe("<MainHeader />", () => {
@@ -24,6 +25,8 @@ describe("<MainHeader />", () => {
   });
 
   test("It should be accessible", async () => {
+    (usePathname as jest.Mock).mockReturnValue("/");
+
     const { container } = render(<MainHeader />);
     const results = await waitFor(() => axe(container));
 
