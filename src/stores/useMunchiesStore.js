@@ -74,8 +74,6 @@ export const useMunchiesStore = create((set) => ({
     set((state) => {
       const isFilterInState = state.filters.price.includes(priceFilter);
 
-      console.log(isFilterInState);
-
       return {
         cuisineFilters: isFilterInState
           ? state.removePriceFilter(priceFilter)
