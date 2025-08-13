@@ -10,9 +10,7 @@ export default function RestaurantContainer() {
   const [originalData, setOriginalData] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
 
-  const activeFilters = useMunchiesStore(
-    (state) => state.filters.cuisineFilters
-  );
+  const activeFilters = useMunchiesStore((state) => state.filters);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +34,8 @@ export default function RestaurantContainer() {
   }, []);
 
   useEffect(() => {
-    const areFiltersEmpty = activeFilters.every(
-      (filterGroup) => filterGroup.length === 0
+    const areFiltersEmpty = Object.values(activeFilters).every(
+      (filterGroup) => Array.isArray(filterGroup) && filterGroup.length === 0
     );
 
     if (areFiltersEmpty) {
@@ -45,9 +43,17 @@ export default function RestaurantContainer() {
       return;
     }
 
-    const filteredData = originalData.filter((restaurant) =>
-      restaurant.filter_ids.some((filterId) => activeFilters.includes(filterId))
-    );
+    const filteredData = originalData.filter((restaurant) => {
+      const isInCuisineFilter = restaurant.filter_ids.some((filterId) =>
+        activeFilters.cuisineFilters.includes(filterId)
+      );
+
+      const isInPriceFilter = activeFilters.price.includes(
+        restaurant.price_range_id
+      );
+
+      return isInCuisineFilter || isInPriceFilter;
+    });
 
     setRestaurants(filteredData);
   }, [activeFilters, originalData]);

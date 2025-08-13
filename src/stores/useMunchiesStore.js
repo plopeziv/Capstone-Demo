@@ -3,7 +3,7 @@ import { create } from "zustand";
 export const useMunchiesStore = create((set) => ({
   filters: {
     cuisineFilters: [],
-    price: [],
+    price: ["d09ff4c9-e90e-42c7-b78b-bdc65e3331ce"],
     deliveryTime: [],
   },
 
