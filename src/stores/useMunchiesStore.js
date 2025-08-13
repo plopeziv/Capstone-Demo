@@ -3,10 +3,11 @@ import { create } from "zustand";
 export const useMunchiesStore = create((set) => ({
   filters: {
     cuisineFilters: [],
-    price: ["d09ff4c9-e90e-42c7-b78b-bdc65e3331ce"],
+    price: [],
     deliveryTime: [],
   },
 
+  // cuisineFilters
   addCuisineFilter: (cuisineFilter) =>
     set((state) => {
       if (state.filters.cuisineFilters.includes(cuisineFilter)) {
@@ -41,6 +42,44 @@ export const useMunchiesStore = create((set) => ({
         cuisineFilters: isFilterInState
           ? state.removeCuisineFilter(cuisineFilter)
           : state.addCuisineFilter(cuisineFilter),
+      };
+    });
+  },
+
+  // price
+  addPriceFilter: (priceFilter) =>
+    set((state) => {
+      if (state.filters.price.includes(priceFilter)) {
+        return state;
+      }
+
+      return {
+        filters: {
+          ...state.filters,
+          price: [...state.filters.price, priceFilter],
+        },
+      };
+    }),
+
+  removePriceFilter: (priceFilter) => {
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        price: state.filters.price.filter((price) => price !== priceFilter),
+      },
+    }));
+  },
+
+  togglePriceFilter: (priceFilter) => {
+    set((state) => {
+      const isFilterInState = state.filters.price.includes(priceFilter);
+
+      console.log(isFilterInState);
+
+      return {
+        cuisineFilters: isFilterInState
+          ? state.removePriceFilter(priceFilter)
+          : state.addPriceFilter(priceFilter),
       };
     });
   },
