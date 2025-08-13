@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import CuisineFilter from "./CuisineFilter";
 import PriceFilter from "./PriceFilter";
+import DeliveryTimeFilter from "./DeliveryTimeFilter";
 
 const priceFilters = [
   {
@@ -21,6 +22,13 @@ const priceFilters = [
     id: "93a626e5-5017-416b-9505-7411d22f7b38",
     range: "$$$$",
   },
+];
+
+const deliveryTimeFilter = [
+  { id: "0-10", name: "0-10 min", lowerBound: 0, upperBound: 10 },
+  { id: "10-30", name: "10 - 30 min", lowerBound: 10, upperBound: 30 },
+  { id: "30-60", name: "30 - 60 min", lowerBound: 30, upperBound: 60 },
+  { id: "60+", name: "1 hour+", lowerBound: 60, upperBound: Infinity },
 ];
 
 export default function FilterCard() {
@@ -58,18 +66,9 @@ export default function FilterCard() {
         <div className="mt-5">
           <span className="opacity-40">Delivery Time</span>
           <div className="flex flex-row flex-wrap gap-x-1">
-            <div className="w-fit px-2 py-1 my-1 bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 border border-gray-200 text-[12px]">
-              0-10 min
-            </div>
-            <div className="w-fit px-2 py-1 my-1 bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 border border-gray-200 text-[12px]">
-              10 - 30 min
-            </div>
-            <div className="w-fit px-2 py-1 my-1 bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 border border-gray-200 text-[12px]">
-              30 - 60 min
-            </div>
-            <div className="w-fit px-2 py-1 my-1 bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 border border-gray-200 text-[12px]">
-              1 hour+
-            </div>
+            {deliveryTimeFilter.map((filter) => (
+              <DeliveryTimeFilter key={filter.id} deliveryFilterData={filter} />
+            ))}
           </div>
         </div>
         <div className="mt-5">

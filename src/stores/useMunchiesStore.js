@@ -82,6 +82,51 @@ export const useMunchiesStore = create((set) => ({
     });
   },
 
+  // delivery time
+  addDeliveryTimeFilter: (deliveryTimeFilter) =>
+    set((state) => {
+      const isFilterInState = state.filters.deliveryTime.some(
+        (filter) => filter.id === deliveryTimeFilter.id
+      );
+
+      if (isFilterInState) {
+        return state;
+      }
+
+      return {
+        filters: {
+          ...state.filters,
+          deliveryTime: [...state.filters.deliveryTime, deliveryTimeFilter],
+        },
+      };
+    }),
+
+  removeDeliveryTimeFilter: (deliveryTimeFilter) => {
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        deliveryTime: state.filters.deliveryTime.filter((deliveryTime) => {
+          return deliveryTime.id !== deliveryTimeFilter.id;
+        }),
+      },
+    }));
+  },
+
+  toggleDeliveryTimeFilter: (deliveryTimeFilter) => {
+    set((state) => {
+      const isFilterInState = state.filters.deliveryTime.some(
+        (filter) => filter.id === deliveryTimeFilter.id
+      );
+
+      return {
+        cuisineFilters: isFilterInState
+          ? state.removeDeliveryTimeFilter(deliveryTimeFilter)
+          : state.addDeliveryTimeFilter(deliveryTimeFilter),
+      };
+    });
+  },
+
+  // Reset Filters
   clearFilters: () =>
     set({
       cuisine: [],
