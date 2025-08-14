@@ -28,7 +28,7 @@ export default function FoodContainer() {
     fetchData();
   }, []);
   return (
-    <div className="overflow-x-scroll">
+    <div className="overflow-x-auto">
       {isLoading ? (
         <div className="h-[105px] flex items-center justify-center">
           <BarLoader width={200} />
