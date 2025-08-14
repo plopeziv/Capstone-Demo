@@ -43,6 +43,20 @@ export default function RestaurantContainer() {
       return;
     }
 
+    const isDeliveryTimeInFilterScope = (restaurant) => {
+      const deliveryTimeFilters = activeFilters.deliveryTime;
+      const restaurantDeliveryTime = restaurant.delivery_time_minutes;
+
+      return deliveryTimeFilters.some((deliveryTimeFilter) => {
+        const greaterThanLowerBound =
+          restaurantDeliveryTime >= deliveryTimeFilter.lowerBound;
+        const lessThanUpperBound =
+          restaurantDeliveryTime < deliveryTimeFilter.upperBound;
+
+        return greaterThanLowerBound && lessThanUpperBound;
+      });
+    };
+
     const filteredData = originalData.filter((restaurant) => {
       const isInCuisineFilter = restaurant.filter_ids.some((filterId) =>
         activeFilters.cuisineFilters.includes(filterId)
@@ -52,7 +66,9 @@ export default function RestaurantContainer() {
         restaurant.price_range_id
       );
 
-      return isInCuisineFilter || isInPriceFilter;
+      const isInTimeThreshold = isDeliveryTimeInFilterScope(restaurant);
+
+      return isInCuisineFilter || isInPriceFilter || isInTimeThreshold;
     });
 
     setRestaurants(filteredData);
