@@ -34,7 +34,7 @@ export default function FilterCard() {
     fetchData();
   }, []);
   return (
-    <div className="self-start w-[239px] bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 p-[26px] text-[24px]">
+    <div className="hidden md:block self-start w-[239px] bg-[#FFFFFF] rounded-md shadow-xl shadow-black/5 p-[26px] text-[24px]">
       <div>
         <span>Filter</span>
         <div className="text-[12px] my-5">
