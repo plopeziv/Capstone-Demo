@@ -1,35 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
 import CuisineFilter from "./CuisineFilter";
 import PriceFilter from "./PriceFilter";
 import DeliveryTimeFilter from "./DeliveryTimeFilter";
 
-const priceFilters = [
-  {
-    id: "d09ff4c9-e90e-42c7-b78b-bdc65e3331ce",
-    range: "$",
-  },
-  {
-    id: "ff6b5391-2f0d-4b39-8ba8-d415c52a425d",
-    range: "$$",
-  },
-  {
-    id: "f24fc0fb-a339-4240-a223-1365ec1aee07",
-    range: "$$$",
-  },
-  {
-    id: "93a626e5-5017-416b-9505-7411d22f7b38",
-    range: "$$$$",
-  },
-];
-
-const deliveryTimeFilter = [
-  { id: "0-10", name: "0-10 min", lowerBound: 0, upperBound: 10 },
-  { id: "10-30", name: "10 - 30 min", lowerBound: 10, upperBound: 30 },
-  { id: "30-60", name: "30 - 60 min", lowerBound: 30, upperBound: 60 },
-  { id: "60+", name: "1 hour+", lowerBound: 60, upperBound: Infinity },
-];
+import { priceFilters } from "../../../utils/restaurant-filters/price-filters";
+import { deliveryTimeFilters } from "../../../utils/restaurant-filters/delivery-time-filters";
 
 export default function FilterCard() {
   const [foodFilters, setFoodFilters] = useState([]);
@@ -66,7 +44,7 @@ export default function FilterCard() {
         <div className="mt-5">
           <span className="opacity-40">Delivery Time</span>
           <div className="flex flex-row flex-wrap gap-x-1">
-            {deliveryTimeFilter.map((filter) => (
+            {deliveryTimeFilters.map((filter) => (
               <DeliveryTimeFilter key={filter.id} deliveryFilterData={filter} />
             ))}
           </div>
