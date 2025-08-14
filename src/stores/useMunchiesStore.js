@@ -129,8 +129,10 @@ export const useMunchiesStore = create((set) => ({
   // Reset Filters
   clearFilters: () =>
     set({
-      cuisine: [],
-      price: [],
-      deliveryTime: [],
+      filters: {
+        cuisineFilters: [],
+        price: [],
+        deliveryTime: [],
+      },
     }),
 }));
