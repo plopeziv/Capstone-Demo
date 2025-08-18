@@ -87,13 +87,13 @@ export default function TopSoccerPlayersTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px] max-w-[95vw]">
+    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px] max-w-[95vw] rounded-xl">
       <caption id="scoring-table-caption" className="sr-only">
         Scoring table displaying player information, including name, date of
         birth, nationality, position, goals, assists, and matches played.
       </caption>
 
-      <thead className="bg-[#2b2d42] text-[15px]">
+      <thead className="bg-[#2b2d42] text-[15px] sticky top-0">
         {scoringTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => {

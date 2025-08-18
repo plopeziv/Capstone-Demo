@@ -35,7 +35,9 @@ export default function ScoringLeaders() {
     }
     const filteredStandings = standingsObject
       .filter((player) => {
-        const isMatch = player.team.name === teamName;
+        const isMatch =
+          player.team.name === teamName ||
+          player.team.name === `${teamName} FC`;
         return isMatch;
       })
       .map((player) => ({
@@ -43,9 +45,9 @@ export default function ScoringLeaders() {
         dateOfBirth: player.player.dateOfBirth,
         nationality: player.player.nationality,
         position: player.player.section,
-        goals: player.goals,
-        assists: player.assists,
-        matches: player.playedMatches,
+        goals: player.goals ?? 0,
+        assists: player.assists ?? 0,
+        matches: player.playedMatches ?? 0,
       }));
 
     return filteredStandings;
