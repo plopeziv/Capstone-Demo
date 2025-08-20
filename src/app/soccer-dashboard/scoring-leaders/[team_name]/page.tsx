@@ -83,7 +83,7 @@ export default function ScoringLeaders() {
       <h1>{desluggedTeam}</h1>
       <h2 className="mb-5">In Top 100</h2>
       {isLoading ? (
-        <div className="flex flex-col justify-center items-center h-[386px]  w-[340px] sm:w-[400px] md:w-[550px] lg:w-[900px] bg-[rgba(141,153,174,0.88)]">
+        <div className="flex flex-col justify-center items-center h-[400px] lg:h-[420px] w-[340px] md:w-[600px] lg:w-[800px] bg-[rgba(141,153,174,0.88)]">
           <ScaleLoader
             data-testid="loading-spinner"
             height={50}
