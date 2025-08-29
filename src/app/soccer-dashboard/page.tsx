@@ -25,7 +25,7 @@ export default function SoccerDashboard() {
         if (jsonData.standings) {
           const extractedData = jsonData.standings[0].table.map((item) => ({
             ...item,
-            name: item.team.name,
+            name: item.team.name.replace(/ FC$/, ""),
           }));
           setRowData(extractedData);
         }

@@ -87,13 +87,13 @@ export default function TopSoccerPlayersTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px] max-w-[95vw]">
+    <table className="text-center text-base text-[10px] md:text-[15px] lg:text-[16px] w-[340px] md:w-[600px] lg:w-[800px] rounded-xl">
       <caption id="scoring-table-caption" className="sr-only">
         Scoring table displaying player information, including name, date of
         birth, nationality, position, goals, assists, and matches played.
       </caption>
 
-      <thead className="bg-[#2b2d42] text-[15px]">
+      <thead className="bg-[#2b2d42] text-[15px] sticky top-0">
         {scoringTable.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
@@ -140,43 +140,59 @@ export default function TopSoccerPlayersTable(props) {
         ))}
       </thead>
       <tbody className="bg-[rgba(141,153,174,0.88)]">
-        {scoringTable.getRowModel().rows.map((row, index) => (
-          <tr
-            key={row.id}
-            tabIndex={0}
-            role="row"
-            className={`${
-              index % 2 === 0
-                ? "bg-[rgba(141,153,174,0.88)]"
-                : "bg-[rgba(224, 232, 235, 0.88)]"
-            } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default`}
-          >
-            {row.getVisibleCells().map((cell) => {
-              const rowClassName = hideColumns(cell.column.id);
+        {scoringTable.getRowModel().rows.length === 0 ? (
+          <tr>
+            <td
+              colSpan={7}
+              className="h-[30px] text-center text-white text-lg md:text-2xl lg:text-4xl"
+            >
+              No players found
+            </td>
+          </tr>
+        ) : (
+          <>
+            {scoringTable.getRowModel().rows.map((row, index) => (
+              <tr
+                key={row.id}
+                tabIndex={0}
+                role="row"
+                className={`${
+                  index % 2 === 0
+                    ? "bg-[rgba(141,153,174,0.88)]"
+                    : "bg-[rgba(224, 232, 235, 0.88)]"
+                } hover:bg-[rgba(180,200,220,0.88)] h-[30px] cursor-default`}
+              >
+                {row.getVisibleCells().map((cell) => {
+                  const rowClassName = hideColumns(cell.column.id);
+                  return (
+                    <td key={cell.id} className={rowClassName}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+
+            {Array.from({ length: emptyRows }).map((_, idx) => {
+              const baseIndex = 12 - emptyRows;
               return (
-                <td key={cell.id} className={rowClassName}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                <tr
+                  key={`empty-${idx + baseIndex}`}
+                  className={`${
+                    (baseIndex + idx) % 2 === 0
+                      ? "bg-[rgba(141,153,174,0.88)]"
+                      : "bg-[rgba(224, 232, 235, 0.88)]"
+                  } hover:bg-[rgba(180,200,220,0.88)]`}
+                >
+                  <td colSpan={7} className="h-[30px]"></td>
+                </tr>
               );
             })}
-          </tr>
-        ))}
-
-        {Array.from({ length: emptyRows }).map((_, idx) => {
-          const baseIndex = 12 - emptyRows;
-          return (
-            <tr
-              key={`empty-${idx + baseIndex}`}
-              className={`${
-                (baseIndex + idx) % 2 === 0
-                  ? "bg-[rgba(141,153,174,0.88)]"
-                  : "bg-[rgba(224, 232, 235, 0.88)]"
-              } hover:bg-[rgba(180,200,220,0.88)]`}
-            >
-              <td colSpan={7} className="h-[30px]"></td>
-            </tr>
-          );
-        })}
+          </>
+        )}
       </tbody>
     </table>
   );

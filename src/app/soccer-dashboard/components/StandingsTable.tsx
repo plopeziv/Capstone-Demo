@@ -97,100 +97,105 @@ export default function StandingsTable(props) {
   });
 
   return (
-    <table className="text-center text-base text-xs md:text-[14px] lg:text-[15px] w-[340px] md:w-full lg:w-[1000px] ">
-      <caption id="table-caption" className="sr-only">
-        Premier League Table displaying team positions, played games, wins,
-        draws, losses, goals, and points.
-      </caption>
+    <div className="overflow-y-auto rounded-xl">
+      <table className="text-center text-base text-[15px] w-[340px] md:w-full lg:w-[1000px] ">
+        <caption id="table-caption" className="sr-only">
+          Premier League Table displaying team positions, played games, wins,
+          draws, losses, goals, and points.
+        </caption>
 
-      <thead className="bg-[#2b2d42] text-[15px]">
-        {standingsTable.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              const headerClassName = hideColumns(header.id);
-              return (
-                <th
-                  key={header.id}
-                  role="columnheader"
-                  scope="col"
-                  tabIndex={0}
-                  className={headerClassName}
-                  onClick={header.column.getToggleSortingHandler()}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      header.column.getToggleSortingHandler()(e);
-                    }
-                  }}
-                  aria-sort={
-                    header.column.getIsSorted()
-                      ? header.column.getIsSorted() === "desc"
-                        ? "descending"
-                        : "ascending"
-                      : "none"
-                  }
-                >
-                  {header.isPlaceholder ? null : (
-                    <div className="flex items-center justify-center gap-1">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      <span aria-hidden="true">
-                        {{
-                          asc: " ↑",
-                          desc: " ↓",
-                        }[header.column.getIsSorted() as string] ?? ""}
-                      </span>
-                    </div>
-                  )}
-                </th>
-              );
-            })}
-          </tr>
-        ))}
-      </thead>
-
-      <tbody className="bg-[rgba(141,153,174,0.88)] ">
-        {standingsTable.getRowModel().rows.map((row, index) => {
-          return (
-            <tr
-              key={row.id}
-              tabIndex={0}
-              role="row"
-              aria-label={`Row ${row.original.name} with ${row.original.points} points`}
-              onClick={() => handleClick(row.original.name)}
-              onKeyDown={(e) => handleKeyDown(e, row.original.name)}
-              className={`${
-                index % 2 === 0
-                  ? "bg-[rgba(141,153,174,0.88)]"
-                  : "bg-[rgba(224, 232, 235, 0.88)]"
-              } hover:bg-[rgba(180,200,220,0.88)] h-[25px] sm:h-[30px] cursor-default hover:cursor-pointer`}
-            >
-              {row.getVisibleCells().map((cell) => {
-                const rowClassName = hideColumns(cell.column.id);
+        <thead className="bg-[#2b2d42] text-[15px] sticky top-0">
+          {standingsTable.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const headerClassName = hideColumns(header.id);
                 return (
-                  <td key={cell.id} className={rowClassName}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+                  <th
+                    key={header.id}
+                    role="columnheader"
+                    scope="col"
+                    tabIndex={0}
+                    className={headerClassName}
+                    onClick={header.column.getToggleSortingHandler()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        header.column.getToggleSortingHandler()(e);
+                      }
+                    }}
+                    aria-sort={
+                      header.column.getIsSorted()
+                        ? header.column.getIsSorted() === "desc"
+                          ? "descending"
+                          : "ascending"
+                        : "none"
+                    }
+                  >
+                    {header.isPlaceholder ? null : (
+                      <div className="flex items-center justify-center gap-1">
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        <span aria-hidden="true">
+                          {{
+                            asc: " ↑",
+                            desc: " ↓",
+                          }[header.column.getIsSorted() as string] ?? ""}
+                        </span>
+                      </div>
+                    )}
+                  </th>
                 );
               })}
             </tr>
-          );
-        })}
+          ))}
+        </thead>
 
-        {Array.from({ length: emptyRows }).map((_, idx) => (
-          <tr
-            key={`empty-${idx}`}
-            className={`${
-              idx % 2 === 0
-                ? "bg-[rgba(141,153,174,0.88)]"
-                : "bg-[rgba(224, 232, 235, 0.88)]"
-            } hover:bg-[rgba(180,200,220,0.88)]`}
-          >
-            <td colSpan={10} className="h-[30px]"></td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        <tbody className="bg-[rgba(141,153,174,0.88)]">
+          {standingsTable.getRowModel().rows.map((row, index) => {
+            return (
+              <tr
+                key={row.id}
+                tabIndex={0}
+                role="row"
+                aria-label={`Row ${row.original.name} with ${row.original.points} points`}
+                onClick={() => handleClick(row.original.name)}
+                onKeyDown={(e) => handleKeyDown(e, row.original.name)}
+                className={`${
+                  index % 2 === 0
+                    ? "bg-[rgba(141,153,174,0.88)]"
+                    : "bg-[rgba(224, 232, 235, 0.88)]"
+                } hover:bg-[rgba(180,200,220,0.88)] h-[25px] cursor-default hover:cursor-pointer`}
+              >
+                {row.getVisibleCells().map((cell) => {
+                  const rowClassName = hideColumns(cell.column.id);
+                  return (
+                    <td key={cell.id} className={rowClassName}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+
+          {Array.from({ length: emptyRows }).map((_, idx) => (
+            <tr
+              key={`empty-${idx}`}
+              className={`${
+                idx % 2 === 0
+                  ? "bg-[rgba(141,153,174,0.88)]"
+                  : "bg-[rgba(224, 232, 235, 0.88)]"
+              } hover:bg-[rgba(180,200,220,0.88)]`}
+            >
+              <td colSpan={10} className="h-[30px]"></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
