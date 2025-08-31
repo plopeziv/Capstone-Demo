@@ -10,6 +10,8 @@ import { TableResultDTO } from "../types/table-team.dto";
 import { SortingState } from "../types/table-sorting";
 import { useState } from "react";
 
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+
 const columnHelper = createColumnHelper<TableResultDTO>();
 
 const tableHeaders = [
@@ -20,18 +22,18 @@ const tableHeaders = [
   }),
   columnHelper.accessor("name", { header: "Name", sortingFn: "text" }),
   columnHelper.accessor("playedGames", {
-    header: "Played Games",
+    header: "Games",
     sortingFn: "basic",
   }),
   columnHelper.accessor("won", { header: "Won", sortingFn: "basic" }),
   columnHelper.accessor("draw", { header: "Draw", sortingFn: "basic" }),
   columnHelper.accessor("lost", { header: "Lost", sortingFn: "basic" }),
   columnHelper.accessor("goalsFor", {
-    header: "Goals For",
+    header: "GF",
     sortingFn: "basic",
   }),
   columnHelper.accessor("goalsAgainst", {
-    header: "Goals Against",
+    header: "GA",
     sortingFn: "basic",
   }),
   columnHelper.accessor("goalDifference", {
@@ -104,7 +106,7 @@ export default function StandingsTable(props) {
           draws, losses, goals, and points.
         </caption>
 
-        <thead className="bg-[#2b2d42] text-[15px] sticky top-0">
+        <thead className="h-12 bg-[#2b2d42] text-[15px] sticky top-0">
           {standingsTable.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -138,8 +140,18 @@ export default function StandingsTable(props) {
                         )}
                         <span aria-hidden="true">
                           {{
-                            asc: " ↑",
-                            desc: " ↓",
+                            asc: (
+                              <ChevronUpIcon
+                                className="size-3 inline"
+                                strokeWidth={4}
+                              />
+                            ),
+                            desc: (
+                              <ChevronDownIcon
+                                className="size-3 inline"
+                                strokeWidth={4}
+                              />
+                            ),
                           }[header.column.getIsSorted() as string] ?? ""}
                         </span>
                       </div>

@@ -5,6 +5,8 @@ import { SprayDataProfile } from "../../services/SprayDataProfile";
 
 import Histogram from "./components/Histogram";
 
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
+
 import ReactECharts from "echarts-for-react";
 import "echarts-gl";
 
@@ -118,7 +120,14 @@ export default function SampleResearchDashboard() {
     <div className="min-h-screen flex flex-col bg-[url('/background_images/industrial_pipes.png')] bg-cover bg-center p-4">
       <div className="mt-20">
         <h1 className="text-4xl text-center">
-          Introduction to Laser Sheet Imaging (LSI)
+          Introduction to Laser Sheet Imaging{" "}
+          <span className="inline-flex whitespace-nowrap">
+            (LSI)
+            <InformationCircleIcon
+              className="inline ml-1 size-6 shrink-0 "
+              strokeWidth={2}
+            />
+          </span>
         </h1>
       </div>
       <div className="columns-1 lg:columns-2 gap-6 max-w-screen-xl mx-auto mt-12">

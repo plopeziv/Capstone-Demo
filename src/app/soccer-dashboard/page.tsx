@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import StandingsTable from "./components/StandingsTable";
 import { ScaleLoader } from "react-spinners";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 export default function SoccerDashboard() {
   const [rowData, setRowData] = useState([]);
@@ -40,7 +41,14 @@ export default function SoccerDashboard() {
   return (
     <div className="h-[80vh] flex flex-col justify-center items-center ">
       <h1 className="text-3xl md:text-4xl lg:text-5xl mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
-        Premier League Table
+        Premier League{" "}
+        <span className="inline-flex whitespace-nowrap">
+          Table
+          <InformationCircleIcon
+            className="inline ml-1 size-5 lg:size-6 shrink-0"
+            strokeWidth={2}
+          />
+        </span>
       </h1>
       {isLoading ? (
         <div className="flex flex-col justify-center items-center h-[626px] w-[340px] md:w-full lg:w-[1000px] bg-[rgba(141,153,174,0.88)]">
