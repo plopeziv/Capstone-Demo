@@ -7,6 +7,15 @@ import Histogram from "./components/Histogram";
 
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+
 import ReactECharts from "echarts-for-react";
 import "echarts-gl";
 
@@ -123,10 +132,49 @@ export default function SampleResearchDashboard() {
           Introduction to Laser Sheet Imaging{" "}
           <span className="inline-flex whitespace-nowrap">
             (LSI)
-            <InformationCircleIcon
-              className="inline ml-1 size-6 shrink-0 "
-              strokeWidth={2}
-            />
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="ml-1 relative -top-2">
+                  <InformationCircleIcon
+                    className="size-6 shrink-0 hover:text-yellow-500"
+                    strokeWidth={2}
+                  />
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-[#222223] w-[90%] text-white border-gray-700 rounded-xl">
+                <DialogTitle className="text-center">
+                  Introduction to Laser Sheet Imaging (LSI)
+                </DialogTitle>
+                <DialogDescription className="mt-1 text-sm text-gray-300 leading-relaxed text-justify">
+                  This page illustrates the final reporting responsibilities of
+                  a Research Engineer at Spraying Systems Co., following the
+                  design and execution of contract testing conducted in
+                  accordance with customer specifications. Each test was
+                  tailored to meet unique performance criteria, with
+                  comprehensive reports prepared to document both methodology
+                  and results. <br />
+                  <br />
+                  The sample presented here simulates a comparable reporting
+                  process using Laser Sheet Imaging (LSI), demonstrating how
+                  such analyses are conducted and communicated. In practice,
+                  projects of this nature typically allowed one week for report
+                  preparation after the completion of experimentation.
+                  <br />
+                  <br />
+                  For more information on Spraying Systems Co.'s Spray Analysis
+                  team, refer to{" "}
+                  <a
+                    href="https://www.spray.com/-/media/dam/industrial/usa/sales-material/product-market-bulletin/b769_spray_analysis_connecting_the_drops.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-blue-500"
+                  >
+                    Bulletin 769
+                  </a>
+                </DialogDescription>
+                <DialogClose />
+              </DialogContent>
+            </Dialog>
           </span>
         </h1>
       </div>
