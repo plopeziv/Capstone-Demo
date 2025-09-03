@@ -142,10 +142,10 @@ export default function SampleResearchDashboard() {
                 </button>
               </DialogTrigger>
               <DialogContent className="bg-[#222223] w-[90%] text-white border-gray-700 rounded-xl">
-                <DialogTitle className="text-center">
+                <DialogTitle className="text-center text-xl">
                   Introduction to Laser Sheet Imaging (LSI)
                 </DialogTitle>
-                <DialogDescription className="mt-1 text-sm text-gray-300 leading-relaxed text-justify">
+                <DialogDescription className="mt-1 text-md max-h-[70vh] overflow-y-auto text-gray-300 leading-relaxed text-justify">
                   This page illustrates the final reporting responsibilities of
                   a Research Engineer at Spraying Systems Co., following the
                   design and execution of contract testing conducted in
