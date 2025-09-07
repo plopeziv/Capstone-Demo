@@ -161,8 +161,8 @@ export default function SampleResearchDashboard() {
                   preparation after the completion of experimentation.
                   <br />
                   <br />
-                  For more information on Spraying Systems Co.'s Spray Analysis
-                  team, refer to{" "}
+                  For more information on Spraying Systems Co.&apos;s Spray
+                  Analysis team, refer to{" "}
                   <a
                     href="https://www.spray.com/-/media/dam/industrial/usa/sales-material/product-market-bulletin/b769_spray_analysis_connecting_the_drops.pdf"
                     target="_blank"
