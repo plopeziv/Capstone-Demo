@@ -3,6 +3,7 @@ export async function GET() {
     "http://api.football-data.org/v4/competitions/PL/scorers?limit=100",
     {
       headers: { "X-Auth-Token": process.env.NEXT_PUBLIC_FOOTBALL_API_TOKEN },
+      next: { revalidate: 600 },
     }
   );
 
