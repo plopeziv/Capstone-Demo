@@ -45,7 +45,7 @@ export default function MunchiesPage() {
                 </a>
                 . This mock restaurant app displays open and closed restaurant
                 cards that could theoretically lead to new pages in a real world
-                application. The design was based on Punchkick's{" "}
+                application. The design was based on Punchkick&apos;s{" "}
                 <a
                   href="https://www.figma.com/design/263XJno7ii0uEaarJP9Ydw/Umain-Tech-Case?node-id=27-5682&t=bDceZ8gFoQjiqd9O-0"
                   target="_blank"
@@ -65,9 +65,9 @@ export default function MunchiesPage() {
                 </a>
                 . <br />
                 <br />
-                Restaurant data and filters are pulled from Punchkick's API.
-                Results are cached for 5 minutes in accordance with their
-                challenge requirements. This is fetched on the page's card
+                Restaurant data and filters are pulled from Punchkick&apos;s
+                API. Results are cached for 5 minutes in accordance with their
+                challenge requirements. This is fetched on the page&apos;s card
                 containers and helps populate the information necessary for
                 every restaurant card. <br />
                 <br />
