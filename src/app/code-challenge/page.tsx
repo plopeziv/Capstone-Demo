@@ -22,7 +22,10 @@ export default function MunchiesPage() {
           Munchies{" "}
           <Dialog>
             <DialogTrigger asChild>
-              <button className="ml-1 relative -top-2">
+              <button
+                className="ml-1 relative -top-2"
+                aria-label="Munchie's Page Information"
+              >
                 <InformationCircleIcon
                   className="size-6 shrink-0 hover:text-yellow-500"
                   strokeWidth={2}
