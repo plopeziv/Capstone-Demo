@@ -75,12 +75,29 @@ export default function SoccerDashboard() {
                 that team’s page, which highlights players from that club ranked
                 within the top 100 scorers across the league. <br />
                 <br />
-                The tables seen on both pages are built with TanStack Table for
-                fast rendering, sorting, and responsive design. Data is sourced
-                from the football-data.org API under a free license. Because of
-                this, requests are restricted to 10 calls per minute, and
-                results are cached to stay within those limits while keeping
-                pages responsive.
+                The tables seen on both pages are built with{" "}
+                <a
+                  href="https://tanstack.com/table/v8/docs/introduction"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-blue-500"
+                >
+                  {" "}
+                  TanStack Table
+                </a>{" "}
+                for fast rendering, sorting, and responsive design. Data is
+                sourced from the{" "}
+                <a
+                  href="https://www.football-data.org/documentation/quickstart"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-blue-500"
+                >
+                  football-data.org
+                </a>{" "}
+                API under a free license. Because of this, requests are
+                restricted to 10 calls per minute, and results are cached to
+                stay within those limits while keeping pages responsive.
                 <br />
                 <br />
                 By clicking on a team row, you can explore player-level scoring
